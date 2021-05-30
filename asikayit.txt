@@ -1,0 +1,49 @@
+Adi soyadi: Emre Balta
+ Kan grubu: Arh+ 
+Kimlik no: 12358975612yok 
+Tarih(g.a.y): 31.1.2006 
+Alinan ilac ve adet: 65 tane 
+yok Asi tarih ve saat: 0.1.0- 0.00 
+Asi turu ve dozu: yok 2.doz
+Adi soyadi: melih balta
+ Kan grubu: 0rh+ 
+Kimlik no: 13220734518sinovac 
+Tarih(g.a.y): 5.9.2000 
+Alinan ilac ve adet: 2 tane 
+parol Asi tarih ve saat: 24.5.2021- 20.55 
+Asi turu ve dozu: sinovac 2.doz
+Adi soyadi: Melih Balta
+ Kan grubu: Arh+ 
+Kimlik no: 13220734518asd 
+Tarih(g.a.y): 12.0.1929380210 
+Alinan ilac ve adet: 0 tane 
+.12.12 Asi tarih ve saat: 5242912.4259917.1929380210- 0.00 
+Asi turu ve dozu: asd 5.doz
+Adi soyadi: s<f fas
+ Kan grubu: fas 
+Kimlik no: af 
+Tarih(g.a.y): 12.0.1929380210 
+Alinan ilac ve adet: 0 tane 
+asf Asi tarih ve saat: 5242912.4259917.1929380210- 0.00 
+Asi turu ve dozu: asf 5.doz
+Adi soyadi: asf 2
+ Kan grubu: 5645 
+Kimlik no: asdf 
+Tarih(g.a.y): 12.0.1929380210 
+Alinan ilac ve adet: 0 tane 
+fas Asi tarih ve saat: 5242912.4259917.1929380210- 0.00 
+Asi turu ve dozu: fas 5.doz
+Adi soyadi: Melih Balta
+ Kan grubu: Arh+ 
+Kimlik no: 13220734518par 
+Tarih(g.a.y): 15.0.1929380210 
+Alinan ilac ve adet: 0 tane 
+.15.15 Asi tarih ve saat: 5242912.4259917.1929380210- 0.00 
+Asi turu ve dozu: par 50.doz
+Adi soyadi: melih balta
+ Kan grubu: 0rh+ 
+Kimlik no: 54646846355.12 
+Tarih(g.a.y): 51465.351.51 
+Alinan ilac ve adet: 101 tane 
+rar Asi tarih ve saat: 12.4259917.1929380210- 0.12 
+Asi turu ve dozu: .12 2.doz

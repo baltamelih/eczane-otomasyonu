@@ -1,0 +1,43 @@
+ilac adi:ilac1
+ilac olcegi:5
+ilacın gunluk kullanim miktari:4
+ilacın son kullanım tarihi:20.11.2027
+ilacın fiyati:50
+ilac turu:agri kesici
+ilac adi:ilac2
+ilac olcegi:sf
+ilacın gunluk kullanim miktari:fs
+ilacın son kullanım tarihi:sf
+ilacın fiyati:101
+ilac turu:s
+ilac adi:ilac2
+ilac olcegi:fsf
+ilacın gunluk kullanim miktari:sf
+ilacın son kullanım tarihi:sf
+ilacın fiyati:101
+ilac turu:f
+ilac adi:ilac3
+ilac olcegi:sf
+ilacın gunluk kullanim miktari:sfsf
+ilacın son kullanım tarihi:fsfs
+ilacın fiyati:101
+ilac turu:s
+ilac adi:ilac4
+ilac olcegi:asdfaf
+ilacın gunluk kullanim miktari:afs
+ilacın son kullanım tarihi:afs
+ilacın fiyati:60
+ilac turu:fas
+ilac adi:ilac5
+ilac olcegi:fssf
+ilacın gunluk kullanim miktari:fas
+ilacın son kullanım tarihi:asf
+ilacın fiyati:40
+ilac turu:asf
+parol
+102
+5kez
+20.12.2025
+60
+agrikesici
+5
