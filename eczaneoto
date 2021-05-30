@@ -1,0 +1,616 @@
+#include <stdio.h>//kütüphane
+#include <string.h>//kütüphane 
+#include <stdlib.h>//kütüphane
+#include <conio.h>//kütüphane
+struct asikayit{//struct yapısı, aşı kayıt etmek için kullandık
+	char isim[100];
+	char soyisim[100];
+	char kangrubu[100];
+	char ilac[100]; 
+	char kimlikno[11];
+	char asituru[20];
+	int adet;
+	int ay;
+	int yil;
+	int gun;
+	int asiay;
+	int asigun;
+	int asiyil;
+	int asidozu;
+	float asisaat;
+};
+
+struct bilgi{//struct yapısı, giriş kısmında kullanıcı adını ve şifreyi tanımlamak için kullandık
+	char user[20];
+	char pass[20];
+};
+struct hasta{//struct yapısı, hasta bilgilerini tutmak için kullandık
+		char ad[15];
+		char soyad[15];
+		char kimlik[11];
+		char dogumtarihi[15];
+
+};
+struct ilaclar{//struct yapısı, ilac bilgilerini tutmak için kullandık
+	char ad[20];
+	char olcek[10];
+	char kullanimmiktari[10];
+	char sonkullanimtarihi[10];
+	int fiyat;
+	char serino[10];
+	char tur[20];
+	int adet;
+};
+void giris(){// giris fonskyionu
+	void kayit();//başlangıçta kayıt işlevi gerçekleşiyor
+	int secim,sayac=0;//kullanacağımız değişkenler
+	char kullanici[20],sifre[20];//kullanıcı adı ve şifre için iki farklı dizi oluşturduk
+	int control;//control değişkeni
+	
+	printf("Giris yapmak istediginiz birimi tuslayiniz...\n      1-Eczaci girisi \n      2-Doktor girisi \n      3-Ecza deposu \n");//ilk gelen ekranda seçim yaptırmak için bilgileri yazdırdık
+	scanf("%d",&secim);//klavyeden bir tuş alınmasını sağladık
+	system("CLS");//tüm ekranı temizletmek amacıyla kullandık
+	printf("Lutfen kullanici adinizi ve sifrenizi giriniz...\n");
+	printf("Kullanici adi:");
+	scanf("%s",&kullanici);//kullanıcı adını klavyeden aldık
+	printf("Sifre:");
+	scanf("%s",&sifre);//şifreyi klavyeden aldık
+	FILE *dosya;//dosya değişkenini tanımladık
+	if(secim==1){//klavyeden alınan değerin ilk kontrolü
+		dosya=fopen("eczaci.txt","r");//eczaci.txt adlı dosyamızı okutmak amacıyla açtık
+		struct bilgi x;//bilgi structını çağırdık 
+		fscanf(dosya,"%s",&x.user);//dosyadan kullanıcı adı değişkenini okuduk
+		fscanf(dosya,"%s",&x.pass);//dosyadan şifre adlı değişkeni okuduk
+				if((strcmp(kullanici,x.user)==0) && (strcmp(sifre,x.pass)==0)) 	//kullanıcı adı ve şifreyi kontrol ettik
+				{	
+				basadon://goto basadon'un baslama yeri
+					system("CLS");//ekran temizlenir	
+					int id;//seçim yapacağımız id değişkenini ekledik
+					printf("Eczaci girisi basariyla gerceklesmistir...\n");//girişin gerçekleştiğine dair ekrana yazdırdık
+					printf("   1-Asi kayit\n   2-Ilac satis\n   3-Asi takvimi\n   4-Yeni ilac ekleme\n   5-Ilac silme\n   6-Recete sorgulama\n   0-Cikis\n");//eczacı girişi yaptıktan sonra yapabileceğimiz şeyleri listeledik
+					scanf("%d",&id);//seçim için klavyeden değer istedik
+					if(id==1)//kontrol AŞI KAYIT
+					{
+						system("CLS");//ekran temizlenir
+						printf("------------ASI KAYIT------------\n");
+						tekrar://goto tekrar etme kısmının başlangıç yeri
+						struct asikayit asik;//asikayit adlı struct'ı çağırdık
+						printf("Lutfen Hastanin Adi ve Soyadini Aralarda Bir Bosluk Birakarak Giriniz:\n");
+						scanf("%s %s:",&asik.isim,&asik.soyisim);//Hastanın adı ve soyadını klavyeden istedik, struct yapısını kullanarak
+						printf("Kan Gurubu:\n");
+						scanf("%s",&asik.kangrubu);//hastanın kan grubunu klavyeden istedik, struct yapısını kullanarak
+						printf("kimlik Numarasi:\n");
+						scanf("%s",&asik.kimlikno);//hastanın kimlik numarasını klavyeden istedik, struct yapısını kullanarak
+						printf("Lutfen Tarihi(Gun Ay Yil) Aralarda Birer Bosluk Birakarak Giriniz:\n");
+						scanf("%d %d %d",&asik.gun,&asik.ay,&asik.yil);//hastanın kayıt edildiği tarih, struct yapısını kullanarak
+						printf("Alinan Ilacin Adi ve Adedini Aralarda Birer Bosluk Birakarak Giriniz:\n");
+						scanf("%s",&asik.ilac);//ilacı klavyeden istedik
+						 scanf("%d",&asik.adet);//adedi klavyeden istedik
+						printf("Lutfen Asi olacagi Tarihi(Gun Ay Yil) Aralarda Birer Bosluk Birakarak Giriniz:\n");
+						scanf("%d %d %d",&asik.asigun,&asik.asiay,&asik.asiyil);//ası tarihini(G.A.Y) şeklinde klavyeden girişini istedik
+						printf("Asi saatini giriniz:\n");
+						scanf("%f",&asik.asisaat);//aşı saatinin klavyeden girişini istedik
+						printf("Asi turunu giriniz:\n");
+						scanf("%s",&asik.asituru);//aşı türünün klavyeden girişini istedik
+						printf("Kacinci doz asi olunacagini giriniz:\n");
+						scanf("%d",&asik.asidozu);//aşı dozunun klavyeden girişini istedik
+						FILE *dosya=fopen("asikayit.txt","a"); //asi.kayit.txt adlı dosyayı açtık
+						fprintf(dosya,"Adi soyadi: %s %s\n Kan grubu: %s \nKimlik no: %s \nTarih(g.a.y): %d.%d.%d \nAlinan ilac ve adet: %d tane \n%s Asi tarih ve saat: %d.%d.%d- %.2f \nAsi turu ve dozu: %s %d.doz\n",asik.isim,asik.soyisim,asik.kangrubu,asik.kimlikno,asik.gun,asik.ay,asik.yil,asik.adet,asik.ilac,asik.asigun,asik.asiay,asik.asiyil,asik.asisaat,asik.asituru,asik.asidozu);//klavyeden aldığımız bilgileri dosyaya kaydettirdik 						
+						fclose(dosya);//dosyayı kapattık
+						controlbasi://goto controlbasi başlangıç noktası
+						system("CLS");//ekran temizlenir
+						printf("\nTekrar asi kayidi gerceklestirmek icin '1' \n Eczaci sayfasina donmek icin '2'\n");//devam etmek veyahut eczacı sayfasına geri dönme işlemi
+						
+						scanf("%d",&control);//klavyeden 1 veya 2 değerlerinden birini girmesini istedik
+						if(control==1)//kontrol
+						{
+							system("CLS");//ekran temizlenir
+							goto tekrar;//eğer 1'e basıldıysa tekrar: noktasına dönüp tekrar aşı kaydı gerçekleştirmeyi sağladık
+						}
+						else if(control==2)//kontrol
+						{
+							system("CLS");//ekran temizlenir
+							goto basadon;//eğer 2'ye basıldısya basadon: noktasına dönüp eczacı sayfasına dönmesini sağladık
+							
+						}
+						else//kontrol
+						{
+							printf("Yanlis deneme tekrar deneyiniz...");//yanlış deneme çıktısı
+							getch();//bir tuşa basılana denk beklettik, yanlış bir tuşa bastığını göstermek amacıyla
+							goto controlbasi;//tekrar controlbasi: kısmına dönüp klavyeden yeni bir değer alınmasını sağladık
+						}
+						
+						
+					}	
+					else if(id==2)//kontrol İLAÇ SATIŞ
+					{
+						system("CLS");//ekran temizlenir
+						printf("------------ILAC SATIS------------\n");
+						tekrar1://goto tekrar: ın başlama noktası 
+					int adet,toplam=0,cesit,i;//ilaç satış kısmında kullanılacak olan değişkenleri tanımladık
+							printf("Kac cesit ilac verilicek: ");//çıktı kısmı
+							scanf("%d",&cesit);//kaç çeşit ilaç verileceğinin klavyeden girişini istedik
+								struct ilaclar s;//ilaçlar structını çağırdık
+								char aranacak[20];//ilacın adını bulmak amacıyla struct'ın dışında bir karakter dizisi daha atadık
+							FILE *dosya=fopen("ilaclarikaydet.txt","r+");	//ilaclarikaydet.txt adlı dosyayı açıp okuma ve yazdırma işlemini açtık
+
+							for(i=0;i<cesit;i++){//çeşitin kaç tane olduğunu belirlemek amacıyla for döngüsü oluşturduk
+							printf("\nAranacak ilac adi: ");//ekran çıktısı
+							scanf("%s",aranacak);//aranacak ilacın adının klavyeden girişini sağladık
+							while(fscanf(dosya,"%s\n%s\n%s\n%s\n%d\n%s\n%d\n",s.ad,s.olcek,s.kullanimmiktari,s.sonkullanimtarihi,&s.fiyat,s.tur,&s.adet)!=EOF){//girilen ada göre dosyadaki aynı kişiye ait kaydedilmiş diğer bilgilerini çektik
+							if(strcmp(s.ad,aranacak)==0)//strcmp etiketiyle aranan ilaç adının dosyada olup olmadığını kontrol ettirdik
+								{
+									printf("Ilac bulundu...\n");//ekran çıktısı
+									printf("%s %d\n",s.ad,s.fiyat);//aranan ilacın adını ve fiyatını ekrana yazdırdık
+									printf("Verilecek adet sayisi: ");//ekran çıktısı
+									scanf("%d",&adet);//kaç adet satılacağını klavyeden girişini sağladık
+									toplam+=s.fiyat*adet;//istenen ilacın toplam fiyata eklenmesini sağladık
+						
+								}	
+							}
+							}	
+						fclose(dosya);//dosyayı kapattık
+						printf("toplam %d",toplam);//toplam fiyatı ekrana yazdırdık
+		
+						controlbasi1://goto controlbasi1: başlangıç yeri 
+						printf("\nTekrar ilac satisi gerceklestirmek icin '1' \n Eczaci sayfasina donmek icin '2'\n");//seçim yapılması için arayüz
+						scanf("%d",&control);//klavyeden yapılan seçimi aldık
+						if(control==1)//kontrol
+						{
+							system("CLS");//ekranı temizledik
+							goto tekrar1;//tekrar ilaç satışı gerçekleştirmek amacıyla tekrar1: kısmına döndük
+						}
+						else if(control==2)//kontrol
+						{
+							system("CLS");//ekranı temizledik
+							goto basadon;//eczacı anasayfasına dönmek için basadon: kısmına döndük
+						}
+						else//kontrol 
+						{
+							printf("Yanlis deneme tekrar deneyiniz...");//ekran çıktısı
+							getch();//bir karakter girişine kadar ekranda durulmasını sağladık, hatayı göstermek amacıyla
+							goto controlbasi1;//tekrar arayüzden seçim yapılması için arayüze yani controlbasi1: kısmına döndük
+						}
+
+					}
+					else if(id==3)//kontrol AŞITAKVİMİ
+					{
+						system("CLS");//ekranı temizledik
+						printf("------------ASI TAKVIMI------------\n");
+						tekrar7: //goto tekrar7: başlangıç yeri
+						struct asikayit asik;//asikayit structına kayıt için çağırdık
+						FILE *dosya=fopen("asikayit.txt","r"); //asikayit.txt adlı dosyayı açıp okuma işlemi yaptırmaya hazır hale getirdik
+						fscanf(dosya,"Adi soyadi: %s %s Kimlik no: %s Tarih(g.a.y): %d.%d.%d Asi tarih ve saat: %d.%d.%d- %.2f Asi turu ve dozu: %s %d.doz",asik.isim,asik.soyisim,asik.kimlikno,asik.gun,asik.ay,asik.yil,asik.asigun,asik.asiay,asik.asiyil,asik.asisaat,asik.asituru,asik.asidozu);//dosyadaki bilgileri okuduk 
+						printf("Adi soyadi: %s %s Kimlik no: %s Tarih(g.a.y): %d.%d.%d Asi tarih ve saat: %d.%d.%d- %.2f Asi turu ve dozu: %s %d.doz\n",asik.isim,asik.soyisim,asik.kimlikno,asik.gun,asik.ay,asik.yil,asik.asigun,asik.asiay,asik.asiyil,asik.asisaat,asik.asituru,asik.asidozu);//dosyadan okuduğumuz bilgileri ekrana yazdırdık
+						fclose(dosya);//dosyayı kapattık
+						getch();//bir karakter girişine kadar ekranda aşı takviminin görüntülenmesini sağladık
+						controlbasi7://goto controlbasi7: başlangıç yeri 
+						system("CLS");//ekranı temizledik
+						printf("\nTekrar asi takvimini goruntulemek icin '1' \n Eczaci sayfasina donmek icin '2'\n");//ekran çıktısı
+						scanf("%d",&control);//arayüzde bulunan 1 veya 2 den birinin seçimini klavyeden sağladık
+						if(control==1)//kontrol
+						{
+							system("CLS");//ekranı temizledik
+							goto tekrar7;//tekrar aşı takvimini görüntülemek için tekrar7: noktasına döndük
+						}
+						else if(control==2)//kontrol
+						{
+							system("CLS");//ekranı temizledik
+							goto basadon;//eczacı anasayfasına dönmek amacılya basadon: kısmına döndük
+							
+						}
+						else//kontrol
+						{
+							printf("Yanlis deneme tekrar deneyiniz...");//ekran çıktısı
+							getch();//bir karakter girişi ypaılana kadar hatayı göstermek amacıyla kullandık
+							goto controlbasi7;//controlbasi7: noktasına geri döndük tekrar kullanıcıdan bir giriş aldık
+						}	
+					}
+					else if(id==4)//kontrol YENİ İLAÇ EKLEME 
+					{
+						system("CLS");//ekranı temizledik
+						printf("------------YENI ILAC EKLEME------------\n");//ekran çıktısı
+						tekrar2://goto tekrar2: başlangıç yeri
+						FILE *dosya;//dosyayı tanımladık
+						struct ilaclar st1;//ilaclar adlı structı çağırdık ve st1 değişkeni olarak atadık
+						dosya=fopen("ilaclarikaydet.txt","a");//ilaclarikaydet.txt adlı dosyaya bilgi girişi için açtık
+						printf("ilac adi: ");//ekran çıktısı
+						scanf("%s",&st1.ad);//ilaç adının klavyeden girişini aldık
+						printf("ilac olcegi: ");//ekran çıktısı
+					    scanf("%s",&st1.olcek);//ilaç ölçeğinin klavyeden girişini aldık
+						printf("ilacin gunluk kullanim miktari: ");//ekran çıktısı
+						scanf("%s",&st1.kullanimmiktari);//ilacın kullanım miktarının ne kadar olduğunu klavyeden girişini aldık
+						printf("ilacin son kullanim tarihi: ");//ekran çıktısı
+						scanf("%s",&st1.sonkullanimtarihi);//son kullanım tarihinin klavyeden girişini sağladık
+						printf("ilacin fiyati: ");//ilacın fiyatı istenir
+						scanf("%d",&st1.fiyat);//girilen değer tutulur
+						printf("ilac turu: ");	//ilacın türü istenir
+						scanf("%s",&st1.tur);//girilen değer tutulur
+						printf("kac adet alindi:");//alınacak adet değeri istenir
+						scanf("%d",&st1.adet);//girilen değer tutulur
+					    fprintf(dosya,"%s\n%s\n%s\n%s\n%d\n%s\n%d\n",st1.ad,st1.olcek,st1.kullanimmiktari,st1.sonkullanimtarihi,st1.fiyat,st1.tur,st1.adet);//girilen değerler dosyaya yazdırılır
+						fclose(dosya);//ilaçlarikaydet dosyası kapatılır
+						controlbasi2://sonradan buraya dönülmesi için bir belirleyici
+						system("CLS");//ekran temizlenir
+						printf("\nTekrar yeni ilac eklemeyi gerceklestirmek icin '1' \n Eczaci sayfasina donmek icin '2'\n");//kullanıcıdan kontrol değeri istenir
+						scanf("%d",&control);//kontrol değeri tutulur
+						if(control==1)//kontrol değeri 1 ise
+						{
+							system("CLS");//ekran temizlenir
+							goto tekrar2;//tekrar2 kısmına geçiş sağlar
+						}
+						else if(control==2)//kontrol değeri 2 ise
+						{
+							system("CLS");//ekran temizlenir
+							goto basadon;//basadon kısmına geçiş sağlar
+						}
+						else//başka bir değer girildiyse
+						{
+							printf("Yanlis deneme tekrar deneyiniz...");
+							getch();
+							goto controlbasi2;//controlbasi2 kısmına geçiş sağlar
+						}			
+					}
+					else if(id==5)//id değeri 5 ise
+					{
+						system("CLS");//ekran temizlenir
+						tekrar3://sonradan buraya dönülmesi için bir belirleyici
+						printf("------------ILAC SILME------------\n");																				
+						struct ilaclar e;//kodun başında belirtilen ilaçlar struct'ı çağırılır
+						char sil[20];//silinecek ilaç için isim tanımlanır
+						printf ("Silinecek ad:");//silinecek ilaç ismi girilir
+						scanf ("%s",&sil);//isim tutulur
+           				FILE *eski_dosya=fopen("ilaclarikaydet.txt","r");//ilaçları kaydettiğimiz dosya okunma modunda açılır
+						FILE *yeni_dosya=fopen("yeni_dosya.txt","w+");//ilaç silindikten sonra oluşacak yeni liste için yazma ve okutma modunda yeni dosya açılır
+						while (fscanf(eski_dosya,"%s\n%s\n%s\n%s\n%d\n%s\n%d\n",e.ad,e.olcek,e.kullanimmiktari,e.sonkullanimtarihi,&e.fiyat,e.tur,&e.adet)!= EOF)//eski dosyadaki değerler dosya sonuna gelmediği sürece					
+						{						
+						if (strcmp(sil,e.ad)==0)//silinmek istenen ilacın adı dosyadaki ilaç ismine eşitse
+						printf ("%s\n%s\n%s\n%s\n%d\n%s\n%d\n– Silindi!",e.ad,e.olcek,e.kullanimmiktari,e.sonkullanimtarihi,e.fiyat,e.tur,e.adet);//ilaç adı,ölçeği,kullanım miktarı,son kullanım tarihi,fiyatı,türü ve adedi ve silindi ifadesi yazdırılır					
+						else//silinmek istenen ilacın adı dosyadaki ilaç ismine eşit değilse
+						fprintf (yeni_dosya,"%s\n%s\n%s\n%s\n%d\n%s\n%d\n",e.ad,e.olcek,e.kullanimmiktari,e.sonkullanimtarihi,e.fiyat,e.tur,e.adet);//dosyaya ilacın değerleri yazdırılır					
+						}																		
+						fclose(eski_dosya);//ilaclarikaydet dosyası kapatılır
+						fclose(yeni_dosya);//yeni_dosya dosyası kapatılır
+						remove ("ilaclarikaydet.txt");//eski dosya silinir
+						rename ("yeni_dosya.txt","ilaclarikaydet.txt");//yeni dosyanın adı ilaclarikaydet adıyla oluşturulur
+						controlbasi3://sonradan buraya dönülmesi için bir belirleyici
+						system("CLS");//ekran temizlenir
+						printf("\nTekrar ilac silmeyi gerceklestirmek icin '1' \n Eczaci sayfasina donmek icin '2'\n");//kullanıcıdan kontrol değeri istenir
+						scanf("%d",&control);//kontrol değeri tutulur
+						if(control==1)//kontrol değeri 1 ise
+						{
+							system("CLS");//ekran temizlenir
+							goto tekrar3;//tekrar3 kısmına geçiş sağlar
+						}
+						else if(control==2)//kontrol değeri 2 ise
+						{
+							system("CLS");//ekran temizlenir
+							goto basadon;//basadon kısmına geçiş sağlar
+						}
+						else//başka bir değer girildiyse
+						{
+							printf("Yanlis deneme tekrar deneyiniz...");
+							getch();
+							goto controlbasi3;//controlbasi3 kısmına geçiş sağlar
+						}
+					}
+					else if(id==6)//id değeri 6 ise
+					{
+					system("CLS");//ekran temizlenir
+						printf("------------RECETE SORGULAMA------------\n");
+						tekrar4://sonradan buraya dönülmesi için bir belirleyici
+						char kimlikno[11];//kimlik no ile sorgulama yapılacağı için isim oluşturulur
+						struct hasta h;//kodun başında bulunan hasta struct'ı çağırılır
+						char ilac[100];//ilaç değerinin okunabilmesi için isim oluşturulur
+						int durum=0;//durum değişkeni tanımlanır
+						printf("kimligi girin:");//kimlik değeri istenir
+						scanf("%s",kimlikno);//kimlik değeri tutulur
+						FILE *a=fopen("recete.txt","r");//reçete dosyası okunma komutuyla açılır
+							 while(fscanf(a,"%s %s",h.kimlik,ilac)!=EOF)//dosyadaki kimlik ve ilaç bilgileri dosya sonuna gelmediği sürece
+							 	{
+							 	if(strcmp(h.kimlik,kimlikno)==0)//dosyadaki kimlik bilgisi kullanıcının girdiği kimlik bilgisine eşitse
+						{	
+							printf("hasta var\n");
+							printf("%s",ilac);	//ilacın adı yazdırılır
+							durum=1;//durum 1 olur
+   					        fclose(a);//dosya kapatılır
+						}
+								}
+								controlbasi4://sonradan buraya dönülmesi için bir belirleyici
+						printf("\nTekrar recete sorgulamak icin gerceklestirmek icin '1' \n Eczaci sayfasina donmek icin '2'\n");//kullanıcıdan kontrol değeri istenir
+						scanf("%d",&control);//kontrol değeri tutulur
+						if(control==1)//kontrol değeri 1 ise
+						{
+							system("CLS");//ekran temizlenir
+							goto tekrar4;//tekrar4 kısmına geçiş sağlar
+						}
+						else if(control==2)//kontrol değeri 2 ise
+						{
+							system("CLS");//ekran temizlenir
+							goto basadon;//basadon kısmına geçiş sağlar
+						}
+						else//başka bir değer girildiyse
+						{
+							printf("Yanlis deneme tekrar deneyiniz...");
+							goto controlbasi4;//controlbasi4 kısmına geçiş sağlar
+						}	
+					}
+					else if(id==0)//id değeri 0 ise
+					{
+						system("CLS");//ekran temizlenir
+						printf("Program sonlandi...\nEkrani kapatmak icin bir tusa basiniz...");
+						exit(EXIT_SUCCESS);//program kapanır
+					}
+					else//başka bir değer girildiyse
+					{
+					printf("Belirtilen sayilardan birini tuslayiniz...\n");
+					getch();
+					goto basadon;//basadon kısmına geçiş sağlar
+					}
+					
+					
+				
+				}
+        		else {//girilen kullanıcı adı ve şifre dosyadakilere eşit değilse
+        			printf("Kullanici adi ya da sifre hatali...\n tekrar deneyin...\n");
+        			if(sayac==3)//yanlış bilgi girişi 3 kere olursa
+			{
+        			printf("Lutfen kullanici adi ya da sifrenizi degistirin...\n");
+        			sayac=0;//sayaç sıfırlanır
+        		
+        			kayit();//kayıt fonksiyonu çağırılır
+        		
+			}
+				    printf("kullanici adi:");//kullanıcı adı istenir
+					scanf("%s",&kullanici);//değer tutulur
+					printf("sifre:");//şifre istenir
+					scanf("%s",&sifre);//değer tutulur	
+					}				
+	    fclose(dosya);//eczacı dosyası kapatılır
+	}
+		else if(secim==2){//eğer seçim 2 ise
+		dosya=fopen("doktor.txt","r");//doktor dosyası okuma modunda açılır
+		struct bilgi y;//kodun başında belirtilen bilgi struct'ı çağırılır
+		fscanf(dosya,"%s",&y.user);//doktor dosyasında kullanıcı adı tutulur
+		fscanf(dosya,"%s",&y.pass);//doktor dosyasında şifre tutulur							
+				if((strcmp(kullanici,y.user)==0) && (strcmp(sifre,y.pass)==0)) 	{//girilen kullanıcı adı ve şifre dosyadaki bilgilerle aynı ise
+					system("CLS");//ekran temizlenir
+					printf("Doktor girisi basariyla gerceklestirilmistir...\n");//giriş gerçekleştirilir
+					basadon1://sonradan buraya dönülmesi için bir belirleyici
+					int id1;//seçenek seçmek için değişken tanımlanır
+					printf("      1-Hasta kayit\n      2-Recete yaz\n      3-Cikis\n");
+					scanf("%d",&id1);//girilen id1 değişkeni tutulur
+					if(id1==1)//id1 1'e eşitse
+					{
+						tekrar5://sonradan buraya dönülmesi için bir belirleyici
+						printf("------------HASTA KAYIT------------\n");
+						FILE *dosya=fopen("kayit.txt","a");//kayıt dosyası bilgi ekleme modunda açılır
+							struct hasta has;//kodun başında belirtilen hasta struct'ı çağırılır
+							printf("\nhastanin adi:");//hasta adı istenir
+							scanf("%s",has.ad);//hasta adı bilgisi tutulur
+							printf("hastanin soyadi:");//hasta soyadı istenir
+							scanf("%s",has.soyad);//hasta soyadı bilgisi tutulur
+							printf("hastanin kimligi:");//hasta kimliği istenir
+							scanf("%s",has.kimlik);//hasta kimlik bilgisi tutulur
+							printf("hastanin dogum tarihi:");//hasta doğum tarihi istenir
+							scanf("%s",has.dogumtarihi);//hasta doğum tarihi bilgisi tutulur
+					fprintf(dosya,"%s %s\n%s\n%s\n",has.ad,has.soyad,has.kimlik,has.dogumtarihi);//bilgiler dosyaya yazdırılır
+					printf("Hasta kaydi basari ile gerceklesti...\n");
+					fclose(dosya);	//dosya kapatılır
+					controlbasi5://sonradan buraya dönülmesi için bir belirleyici
+								system("CLS");//ekran temizlenir
+						printf("\nTekrar hasta kayidi icin gerceklestirmek icin '1' \n Doktor sayfasina donmek icin '2'\n");//kullanıcıdan kontrol değeri istenir
+						scanf("%d",&control);//kontrol değeri tutulur
+						if(control==1)//kontrol değeri 1 ise
+						{
+							system("CLS");//ekran temizlenir
+							goto tekrar5;//tekrar5 kısmına geçiş sağlar
+						}
+						else if(control==2)//kontrol değeri 2 ise
+						{
+							system("CLS");//ekran temizlenir
+							goto basadon1;//basadon1 kısmına geçiş sağlar
+						}
+						else//başka bir değer girildiyse
+						{
+							printf("Yanlis deneme tekrar deneyiniz...");
+							goto controlbasi5;//conrtolbasi5 kısmına geçiş sağlar
+						}
+					
+						
+					}
+					else if(id1==2)//id1 değeri 2 ise
+					{
+						tekrar6://sonradan buraya dönülmesi için bir belirleyici
+						printf("------------RECETE YAZDIRMA------------\n");
+						struct hasta x;//kodun başında belirtilen hasta struct'ı çağırılır
+						dosya=fopen("kayit.txt","r+");//kayıt dosyası okuma ve yazma modunda açılır
+						char kimlikno[11];//kullanıcıdan istenecek olan kimlik bilgisi için değişken tanımlanır
+						int durum=0;//durum değişkeni tanımlanır
+						char ilac[100];//kullanıcıdan istenecek olan ilaç adı için değişken tanımlanır
+						printf("kimligi girin:");
+						scanf("%s",kimlikno);//girilen kimlik değeri tutulur
+						FILE *a=fopen("recete.txt","a");//reçete dosyası bilgi ekleme modunda açılır
+						while(fscanf(dosya,"%s %s %s %s\n",x.ad,x.soyad,x.kimlik,x.dogumtarihi)!=EOF){//dosyadaki ad,soyad,kimlik ve doğum tarihi bilgileri dosya sonuna gelmediği sürece
+						if(strcmp(x.kimlik,kimlikno)==0)//dosyadaki kimlik bilgisi kullanıcının girdiği kimlik bilgisine eşitse
+						{
+							
+							printf("hasta var\n");
+							printf("%s %s %s %s",x.ad,x.soyad,x.kimlik,x.dogumtarihi);	//ad,soyad,kimlik ve doğum tarihi bilgileri yazdırılır
+							durum=1;//durum 1'e eşitlenir
+					        printf("vereceginiz ilaclari araya - koyarak yaziniz");
+					        scanf("%s",ilac);//girilen ilaç bilgisi tutulur
+					        fprintf(a,"%s %s",x.kimlik,ilac);//kimlik ve ilaç bilgisi dosyaya yazdırılır
+					        fclose(a);//reçete dosyası kapatılır
+						}
+					}  	
+						fclose(dosya);//kayıt dosyası kapatılır
+						controlbasi6://sonradan buraya dönülmesi için bir belirleyici
+						printf("\nTekrar recete yazdirmak icin gerceklestirmek icin '1' \n Doktor sayfasina donmek icin '2'\n");//kullanıcıdan kontrol değeri istenir
+						scanf("%d",&control);//kontrol değeri tutulur
+						if(control==1)//kontrol değeri 1 ise
+						{
+							system("CLS");//ekran temizlenir
+							goto tekrar6;//tekrar6 kısmına geçiş sağlar
+						}
+						else if(control==2)//kontrol değeri 2 ise
+						{
+							system("CLS");//ekran temizlenir
+							goto basadon1;//basadon1 kısmına geçiş sağlar
+						}
+						else//başka bir değer girildiyse
+						{
+							printf("Yanlis deneme tekrar deneyiniz...");
+							goto controlbasi6;//conrtolbasi6 kısmına geçiş sağlar
+						}
+					}
+					else if(id1==3)//id1 değeri 3 ise
+					{
+					system("CLS");//ekran temizlenir
+						printf("Program sonlandi...\nEkrani kapatmak icin bir tusa basiniz...");
+						exit(EXIT_SUCCESS);//program kapatılır
+					}
+					else//başka bir değer girildiyse
+					{
+						printf("Belirtilen sayilardan birini tuslayiniz...\n");
+					getch();
+					goto basadon1;//basadon1 kısmına geçiş sağlar
+					}
+					
+				}
+        else {//girilen kullanıcı adı ve şifre yanlış ise
+        	printf("Kullanici adi ya da sifre hatali tekrar deneyiniz...\n");
+        		if(sayac==3){//sayaç 3'e eşit olduğunda
+        		printf("Lutfen kullanici adi ya da sifrenizi degistiriniz...\n");//şifre değiştirilmesi istenir
+        		sayac=0;//sayaç sıfırlanır
+        		
+        		kayit();//kayıt fonksiyonu çağırılır
+        		
+			}
+    printf("kullanici adi:");//kayıt için kullanıcı adı istenir
+	scanf("%s",&kullanici);//kullanıcı adı tutulur
+	printf("sifre:");//kayıt için şifre istenir
+	scanf("%s",&sifre);//şifre tutulur
+        
+			
+		}
+	
+			
+		
+		fclose(dosya);//doktor dosyası kapatılır
+	}
+		else if(secim==3){//seçim 3'e eşitse
+		dosya=fopen("depo.txt","r");//depo dosyası okuma modunda açılır
+		struct bilgi z;//kodun başında tanımlanan bilgi struct'ı çağırılır
+		fscanf(dosya,"%s",&z.user);//kullanıcı adı dosyada tutulur
+		fscanf(dosya,"%s",&z.pass);//şifre dosyada tutulur
+		
+				if((strcmp(kullanici,z.user)==0) && (strcmp(sifre,z.pass)==0)) 	{//girilen kullanıcı adı ve şifre dosyadakine eşitse
+					printf("Ilac deposu girisi basariyla gerceklesmistir...\n");//giriş gerçekleştirilir
+					int id2;//seçimler için id2 değişkeni tanımlanır
+					printf("1-Acil ilac kontrol\n2-Ilac stok durumu\n3-Ilac satis\n4-Kar/Zarar durumu\n5-Cikis ");
+					scanf("%d",&id2);//girilen seçim tutulur
+					if(id2==1)//id2 1 ise
+					{
+						
+					}
+					else if(id2==2)//id2 2 ise
+					{
+						
+					}
+					else if(id2==3)//id2 3 ise
+					{
+						
+					}
+					else if(id2==4)//id2 4 ise
+					{
+						
+					}
+					else if(id2==5)//id2 5 ise
+					{
+						system("CLS");//ekran temizlenir
+						printf("Program sonlandi...\nEkrani kapatmak icin bir tusa basiniz...");
+						exit(EXIT_SUCCESS);//program kapatılır
+					}
+					else//farklı bir değer girilirse
+					{
+						printf("Belirtilen sayilardan birini tuslayiniz...\n");
+					}
+			
+				
+				}
+        else {//kullanıcı adı veya şifre yanlış girilirse
+        	printf("Kullanici adi ya da sifre hatali tekrar deneyin\n");		
+        		kayit();//kaytit fonksiyonu çağırılır
+    printf("kullanici adi:");//kullanıcı adı istenir
+	scanf("%s",&kullanici);//girilen kullanıcı adı bilgisi tutulur
+	printf("sifre:");//şifre istenir
+	scanf("%s",&sifre);//girilen şifre bilgisi tutulur   			
+		}						
+        fclose(dosya);//depo dosyası kapatılır
+	}
+		else printf("Yanlis secim yaptiniz... Tekrar secmek icin lutfen bekleyiniz...\n");//giriş kısmında farklı bir değer girilirse			
+}
+void kayit()//kayit fonksiyonu çağırılır
+{
+		kayitbasi://sonradan buraya dönülmesi için bir belirleyici
+	int secim;//seçim için bir değişken tanımlanır
+	 printf("Kayit olmak istediginiz birimi tuslayiniz...\n      1-Eczaci  \n      2-Doktor  \n      3-Ecza deposu\n");
+ 	scanf("%d",&secim);//girilen değer tutulur
+ 	system("CLS");//ekran temizlenir
+   FILE *dosya;//dosya tanımlanır
+	if(secim==1){//seçim 1'e eşitse
+		dosya=fopen("eczaci.txt","a");//eczaci dosyası bilgi ekleme modunda açılır
+	    struct bilgi b;//kodun başındaki bilgi struct'ı çağırılır
+	    printf("Kullanici adi ve sifrenizi olusturunuz...\n");
+	    printf("Kullanici adi: ");//kayıt için kullanıcı adı istenir
+	    scanf("%s",&b.user);//girilen kullanıcı adı tutulur
+	    printf("Sifre: ");//kayıt için şifre istenir
+	    scanf("%s",&b.pass);//girilen şifre tutulur
+		fprintf(dosya,"\n%s\n%s",b.user,b.pass);//girilen kullanıcı adı ve şifre dosyaya yazdırılır
+		fclose(dosya);//kayit dosyası kapatılır
+		system("CLS");//ekran temizlenir
+	}
+		else if(secim==2){//seçim 2 ise
+		dosya=fopen("doktor.txt","a");//doktor dosyası ekleme modunda açılır
+	    struct bilgi y;//kodun başındaki bilgi struct'ı çağırılır
+	   printf("Kullanici adi ve sifrenizi olusturunuz\n");
+	    printf("Kullanici adi: ");//kayıt için kullanıcı adı istenir
+	    scanf("%s",&y.user);//girilen kullanıcı adı tutulur
+	    printf("Sifre: ");//kayıt için şifre istenir
+	    scanf("%s",&y.pass);//girilen şifre tutulur
+		fprintf(dosya,"\n%s\n%s",y.user,y.pass);//girilen kullanıcı adı ve şifre dosyaya yazdırılır
+		fclose(dosya);	//kayit dosyası kapatılır
+		system("CLS");//ekran temizlenir
+	}
+		else if(secim==3){//seçim 2 ise
+		dosya=fopen("depo.txt","a");//depo dosyası ekleme modunda açılır
+	    struct bilgi zzz;//kodun başındaki bilgi struct'ı çağırılır
+	    printf("Kullanici adi ve sifrenizi olusturunuz\n");
+	    printf("Kullanici adi: ");//kayıt için kullanıcı adı istenir
+	    scanf("%s",&zzz.user);//girilen kullanıcı adı tutulur
+	    printf("Sifre: ");//kayıt için şifre istenir
+	    scanf("%s",&zzz.pass);//girilen şifre tutulur
+		fprintf(dosya,"\n%s\n%s",zzz.user,zzz.pass);//girilen kullanıcı adı ve şifre dosyaya yazdırılır
+		fclose(dosya);	//kayit dosyası kapatılır
+		system("CLS");//ekran temizlenir
+	}
+		else//farklı bir değer girilirse
+		{
+			printf("Belirtilen sayilardan birini tuslayiniz...\n");
+					getch();
+					goto kayitbasi;//kayitbasi kısmına geçiş sağlar
+		}
+}
+int main(){
+	int secim;//seçim değeri tanımlanır
+	do{//seçim 1 veya 2 olduğu sürece aşağıdakiler gerçekleştirilir
+		printf("Eczane otomasyonumuza hos geldiniz...\n      1-Kayit ol\n      2-Giris\n");
+		scanf("%d",&secim);//girilen değer tutulur
+		system("CLS");//ekran temizlenir
+		if(secim==1)//seçim 1 ise
+			kayit();//kayıt fonksiyonu çağırılır
+		else if(secim==2)//seçim 2 ise
+			giris();//giriş fonksiyonu çağırılır
+	}while(secim==1||secim==2);//seçim 1 veya 2 olduğu sürece
+}
